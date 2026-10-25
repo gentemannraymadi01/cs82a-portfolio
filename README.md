@@ -21,3 +21,4 @@ Module 9: Cloud Computing, Careers, and Your Portfolio
 
 
 ### Final Project
+report (problem, data source and license, cleaning log, findings with at least 3 charts, limitations, how to run)
