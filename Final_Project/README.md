@@ -37,12 +37,23 @@ License: Used in accordance with START's End User License Agreement under non-co
 
 ![Share radicalized primarily online](figures/fig1_share.png)
 
+Chart 1 includes every lone offender with a known online radicalization status. The percent of lone offenders radicalized primarily online is higher in the 2011-2022 (22.3%) group compared to the 1999-2010 (11.9%) group. The 1999-2010 group is smaller. This is why the error bar for that group is longer.
+
+For 60.7% of lone offenders the role of the internet in radicalization is unknown in 1999-2010, vs 32.4% in 2011-2022. The percent of unknown radicalization duration is closer at 49.5% in the earlier group and 44.7% in the later. The main model only references cases with complete data. The comparison between 1999-2010 and 2011-2022 could be biased if the unknown cases differ from the known ones. The analysis cannot tell us in which direction. It can tell us how uncertain the sampling is, as shown by the error bars and p-values.
+
 ### 2. After controlling for age, marital status, and group affiliation, the odds were roughly 3.3 times higher (p = 0.049)
 
 ![Adjusted odds ratio](figures/fig2_main_model.png)
 
+After controlling for age, marital status, and group affiliation, the odds of being radicalized primarily online are about 3.3 times higher in 2011-2022 than in 1999-2010, as represented by the orange dot. Chart 2 only includes the 607 offenders who also have known age, marital status, and group affiliation, so its rates are slightly different from Chart 1's (9.1% in 1999-2010 and 23.9% in 2011-2022, compared with 11.9% and 22.3%). The 1999-2010 group has only 3 cases of primarily online radicalization. The result is statistically significant (p = 0.049), but it is imprecise, as represented by the wide grey bar. Because of the small sample and borderline p-value, these results should be read as suggestive, not conclusive.
+
 ### 3. The proportion of people radicalized in under a year rose from 24% to 43%
+
 ![Radicalization duration by era](figures/fig3_velocity.png)
+
+People in the 2011-2022 group were more likely to be radicalized faster than those in the 1999-2010 group. 24% were radicalized in under a year before 2011, after 2011 this increases to 43%. After controlling for age, marital status, and group affiliation, the odds of radicalizing in under one year were about 2.3 times higher (OR = 2.33, 95% CI 1.17-4.65, p = 0.017). This shows a statistically significant association.
+
+**Bottom line:** The rates of primarily online radicalization and the proportion of people who radicalized in under a year both increased in the 2011-2022 group and the differences hold after adjusting for age, marital status, and group affiliation. This does not prove causation.
 
 # Limitations
 
@@ -54,7 +65,7 @@ No names or identifying information were used in this notebook. The dataset is b
 
 # How to run
 
-1. Download PIRUS V5 from [START](http://www.start.umd.edu/data-tools/profiles-individual-radicalization-united-states-pirus) and save it as `PIRUS V5.xlsx` in the repo root.
+1. Download PIRUS V5 from [START](http://www.start.umd.edu/data-tools/profiles-individual-radicalization-united-states-pirus) and save it as `PIRUS V5.xlsx` in the same folder as the notebook.
 2. Install dependencies: `pip install numpy pandas matplotlib statsmodels openpyxl jupyter`
 3. Open `Final_Project.ipynb` and run all cells. Figures are saved to `figures/`.
 
