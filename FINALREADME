@@ -1,0 +1,87 @@
+# Did Online Radicalization Among Lone-Actor Terrorists Change After Social Media Algorithms?
+
+**CS 82A Final Project, Fall 2026**
+**Repo:** https://github.com/gentemannraymadi01/cs82a-portfolio
+**Walkthrough video:** [ADD LINK HERE]
+
+## Problem
+
+**Question:** After controlling for age, marital status, and group affiliation, does the probability and velocity of primary online radicalization among lone-actor terrorists increase significantly in the post-algorithmic era (2011-2022) compared to the pre-algorithmic era (1999-2010)?
+
+Major social media platforms began using algorithms to rank and recommend content in the early 2010s. Facebook changed its ranking system around 2011 ([source](https://www.newamerica.org/oti/reports/rising-through-ranks/news-feed-ranking/)) and YouTube changed its recommendation system in 2012 ([source](https://www.newamerica.org/oti/reports/why-am-i-seeing-this/case-study-youtube)). This project uses 2011 as a rough dividing line.
+
+This project does **not** show that algorithms caused any change. It compares two time periods on two outcomes:
+
+1. **Probability:** the share of lone offenders whose radicalization was primarily online.
+2. **Velocity:** the share who radicalized in under one year.
+
+## Data source and license
+
+**Dataset:** Profiles of Individual Radicalization in the United States (PIRUS), Version 5, accessed October 2026.
+
+**Citation:** National Consortium for the Study of Terrorism and Responses to Terrorism (START), University of Maryland. (2023). *Profiles of Individual Radicalization in the United States (PIRUS)* [Data file]. http://www.start.umd.edu/data-tools/profiles-individual-radicalization-united-states-pirus. Copyright University of Maryland 2023.
+
+**License:** Used under START's End User License Agreement for non-commercial academic research. The raw data and codebook are **not** included in this repo.
+
+## Cleaning log
+
+| Step | Rows | Detail |
+|---|---|---|
+| Load raw PIRUS V5 | 3,528 | one row per individual |
+| Keep lone offenders | 1,165 | `Lone_Offender == 1` |
+| Keep exposure year >= 1999 | 1,091 | dropped 74; the internet variable is not applicable before 1999 |
+| Define era | 1,091 | pre (1999-2010) n = 107, post (2011-2022) n = 984 |
+| Recode -99 (unknown) to missing | 1,091 | Age = 14, Marital_Status = 248, Group_Membership = 11, Internet_Radicalization = 384, Rad_duration = 493 |
+| Build outcomes and controls | 1,091 | `prim_online`, `fast` (< 1 year), marital status (widowed merged into divorced/separated, n = 9), group labels |
+| Complete cases, main model | 607 | primary-online events = 140 |
+
+**Variable definitions**
+- `prim_online` = 1 if the internet was the *primary* means of radicalization (`Internet_Radicalization == 2`).
+- `fast` = 1 if radicalization took under one year (`Rad_duration == 1`).
+- Controls: age, marital status (single, married, divorced/separated), group affiliation (none, aboveground, informal, formal/movement).
+
+## Findings
+
+### 1. Primary online radicalization is more common in the later era
+
+![Share radicalized primarily online](figures/fig1_share.png)
+
+Among lone offenders with a known online-radicalization status, **22.3%** (2011-2022) were radicalized primarily online versus **11.9%** (1999-2010). The earlier group is much smaller, which is why its confidence interval is wider.
+
+### 2. The difference holds after adjusting for age, marital status, and group affiliation
+
+![Adjusted odds ratio](figures/fig2_main_model.png)
+
+A logistic regression with robust (HC1) standard errors gives an adjusted **odds ratio of 3.30 (95% CI 1.00-10.84, p = 0.049)**, an average effect of about **+15.0 percentage points**. The model uses the 607 complete cases, which have 3 primary-online events out of 33 in the early era and 137 out of 574 in the later era. The result is statistically significant but imprecise and borderline, so it should be read as **suggestive, not conclusive**.
+
+### 3. Radicalization is faster in the later era
+
+![Radicalization duration by era](figures/fig3_velocity.png)
+
+Among offenders with a known duration (n = 513 in the adjusted model), the share radicalized in under one year rose from **24% to 43%**. Adjusted for the same controls, the odds of radicalizing in under a year were about **2.3 times higher (OR = 2.33, 95% CI 1.17-4.65, p = 0.017)**, an average effect of about **+17.6 percentage points**.
+
+## Limitations
+
+- **No causal claim.** This is a comparison of two time periods, not evidence that algorithms caused the change. Platforms changed at different times, so 2011 is a rough cutoff.
+- **Missing data.** The role of the internet is unknown for 60.7% of lone offenders in 1999-2010 versus 32.4% in 2011-2022 (unknown duration: 49.5% vs 44.7%). The models use complete cases only. If unknown cases differ from known ones, the comparison could be biased in a direction this analysis cannot determine. The confidence intervals and p-values reflect sampling uncertainty only.
+- **Small early group.** Only 3 primary-online cases appear in the 1999-2010 complete-case sample. The main result (p = 0.049) is borderline.
+- **Velocity bias.** People in the later era have had less time to offend (2011-2022 vs. 1999-2022 for the earlier window), so slow radicalizers may not have offended yet. That could make the later era look faster.
+
+## Ethics
+
+- The dataset is built from public open-source records and contains no direct identifiers. No names or identifying information are used.
+- The raw data and codebook are not redistributed, per the license.
+- **AI use disclosure:** [EDIT THIS: state which AI tools you used, for what (e.g., code debugging, README drafting), and how you verified the output. Link to `prompt_log.md` if you have one.]
+
+## How to run
+
+1. Download PIRUS V5 from [START](http://www.start.umd.edu/data-tools/profiles-individual-radicalization-united-states-pirus) and save it as `PIRUS V5.xlsx` in the repo root.
+2. Install dependencies: `pip install numpy pandas matplotlib statsmodels openpyxl jupyter`
+3. Open `Final_Project.ipynb` and run all cells. Figures are saved to `figures/`.
+
+## Repo contents
+
+- `Final_Project.ipynb`: full analysis
+- `figures/`: the three charts above
+- `README.md`: this report
+- `prompt_log.md`: AI prompt log [ADD IF APPLICABLE]
