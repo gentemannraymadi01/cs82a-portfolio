@@ -33,7 +33,16 @@ License: Used in accordance with START's End User License Agreement under non-co
 
 # Findings
 
-Primary online radicalization was more common in 2011-2022 (22.3% vs 11.9%). After controlling for age, marital status, and group affiliation, the odds were roughly 3.3 times higher (p = 0.049). Because of the small early group and close p-value, these results are suggestive not conclusive. In regards to velocity, the proportion of people radicalized in under a year rose from 24% to 43%. Adjusted odds were about 2.3 times higher (p = 0.017). Again because people in that group have had less time to offend, people who radicalize slowly may have not offended yet and that data bias could make the later era look faster. The rates of primarily online radicalization and the proportion of people who radicalized in under a year both increased in the later group. This does not prove causation.
+### 1. Primary online radicalization was more common in 2011-2022 (22.3% vs 11.9%).
+
+![Share radicalized primarily online](figures/fig1_share.png)
+
+### 2. After controlling for age, marital status, and group affiliation, the odds were roughly 3.3 times higher (p = 0.049)
+
+![Adjusted odds ratio](figures/fig2_main_model.png)
+
+### 3. The proportion of people radicalized in under a year rose from 24% to 43%
+![Radicalization duration by era](figures/fig3_velocity.png)
 
 # Limitations
 
@@ -48,3 +57,4 @@ No names or identifying information were used in this notebook. The dataset is b
 1. Download PIRUS V5 from [START](http://www.start.umd.edu/data-tools/profiles-individual-radicalization-united-states-pirus) and save it as `PIRUS V5.xlsx` in the repo root.
 2. Install dependencies: `pip install numpy pandas matplotlib statsmodels openpyxl jupyter`
 3. Open `Final_Project.ipynb` and run all cells. Figures are saved to `figures/`.
+
